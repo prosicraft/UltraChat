@@ -82,6 +82,29 @@ public class UltraChat extends JavaPlugin {
                 config.save();
                 MLog.i("Settings saved");
         }
+	
+	public String parserainbow (String message)
+	{
+		String msgb = message;
+		String msg = msgb;
+		if( msgb.contains("#gpride") && msgb.length() > 7 )
+		{
+		    msg = msgb.substring( msgb.indexOf("#gpride") + 7 );                            
+
+		    String orig = msg;
+		    String newmsg = "";
+		    String[] colors = { "" + ChatColor.RED,
+					"" + ChatColor.GOLD,
+					"" + ChatColor.YELLOW,
+					"" + ChatColor.GREEN,
+					"" + ChatColor.BLUE,
+					"" + ChatColor.DARK_PURPLE};
+		    for( int i=0;i<orig.length();i++ )
+			newmsg += ( colors[i%6] + orig.charAt(i)  );
+		    msg = msgb.substring(0, msgb.indexOf("#gpride")) + newmsg;
+		}
+		return msg;
+	}
         
         public String parseformat (String message, Player p)
         {
@@ -94,25 +117,12 @@ public class UltraChat extends JavaPlugin {
                         
                         if( msgb.contains("#rainbow#") )
                         {
-                            msg = msgb.substring( msgb.indexOf("#rainbow#") + 9 );                            
-                            
-                            String orig = msg;
-                            String newmsg = "";
-                            String[] colors = { "" + ChatColor.RED,
-                                                "" + ChatColor.GOLD,
-                                                "" + ChatColor.YELLOW,
-                                                "" + ChatColor.GREEN,
-                                                "" + ChatColor.BLUE,
-                                                "" + ChatColor.DARK_PURPLE};
-                            for( int i=0;i<orig.length();i++ )
-                                newmsg += ( colors[i%6] + orig.charAt(i)  );
-                            msg = msgb.substring(0, msgb.indexOf("#rainbow#")) + newmsg;
-                                
+                            msg = msgb.replaceAll( "#rainbow#", ChatColor.BLACK + "" );
                         }
                         else
                             msg = msgb;
                 } else
-                        msg = message;
+                        msg = message;		
                 pFormat = replaceAll(pFormat, "$nm", p.getName());
                 pFormat = replaceAll(pFormat, "$world", p.getWorld().getName());                
                                 
@@ -138,7 +148,9 @@ public class UltraChat extends JavaPlugin {
                 }                
                 
                 pFormat = MLog.real(pFormat);
-                pFormat = replaceAll(pFormat, "$msg", msg);                                
+                msg = parserainbow( msg );
+		pFormat = replaceAll(pFormat, "$msg", msg);                                
+		pFormat = parserainbow( pFormat );
                 return pFormat;
                 
                 //return (trim) ? MLog.real(pFormat).trim() : MLog.real(pFormat);                
