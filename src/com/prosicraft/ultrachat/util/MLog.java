@@ -13,7 +13,7 @@ public class MLog
 	public static final String ANSI_BLUE = "\u001B[34m";
 	public static final String ANSI_PURPLE = "\u001B[35m";
 	public static final String ANSI_CYAN = "\u001B[36m";
-	public static final String ANSI_WHITE = "\u001B[37m";	
+	public static final String ANSI_WHITE = "\u001B[37m";
 	public static final String ANSI_LIGHTBLACK = "\u001B[90m";
 	public static final String ANSI_LIGHTRED = "\u001B[91m";
 	public static final String ANSI_LIGHTGREEN = "\u001B[92m";
@@ -22,9 +22,9 @@ public class MLog
 	public static final String ANSI_LIGHTPURPLE = "\u001B[95m";
 	public static final String ANSI_LIGHTCYAN = "\u001B[96m";
 	public static final String ANSI_LIGHTWHITE = "\u001B[97m";
-	
+
 	public static void i( String txt, ChatColor col )
-	{				
+	{
 		System.out.println( realAnsi( getAnsi(col) + MConst._OUT_PREFIX + "::INFO] " + txt ) + ANSI_RESET );
 	}
 
@@ -91,26 +91,26 @@ public class MLog
 		if( col == ChatColor.RED ) return ANSI_LIGHTRED;
 		if( col == ChatColor.LIGHT_PURPLE ) return ANSI_LIGHTPURPLE;
 		if( col == ChatColor.YELLOW ) return ANSI_LIGHTYELLOW;
-		
+
 		return ANSI_LIGHTWHITE;
 	}
-	
+
 	public static String realAnsi( String src )
 	{
 		if( src == null )
 			return null;
-		
+
 		String res;
-		
+
 		res = src.replaceAll( "&0", ANSI_BLACK );
-		res = res.replaceAll( "&1", ANSI_BLUE );		
+		res = res.replaceAll( "&1", ANSI_BLUE );
 		res = res.replaceAll( "&2", ANSI_GREEN );
 		res = res.replaceAll( "&3", ANSI_CYAN );
 		res = res.replaceAll( "&4", ANSI_RED );
 		res = res.replaceAll( "&5", ANSI_PURPLE );
-		res = res.replaceAll( "&6", ANSI_YELLOW );		
+		res = res.replaceAll( "&6", ANSI_YELLOW );
 		res = res.replaceAll( "&7", ANSI_WHITE );
-		res = res.replaceAll( "&8", ANSI_LIGHTBLACK );		
+		res = res.replaceAll( "&8", ANSI_LIGHTBLACK );
 		res = res.replaceAll( "&9", ANSI_LIGHTBLUE );
 		res = res.replaceAll( "&a", ANSI_LIGHTGREEN );
 		res = res.replaceAll( "&b", ANSI_LIGHTCYAN );
@@ -118,16 +118,16 @@ public class MLog
 		res = res.replaceAll( "&d", ANSI_LIGHTPURPLE );
 		res = res.replaceAll( "&e", ANSI_LIGHTYELLOW );
 		res = res.replaceAll( "&f", ANSI_LIGHTWHITE );
-		
+
 		res = res.replaceAll( ChatColor.BLACK + "", ANSI_BLACK );
-		res = res.replaceAll( ChatColor.DARK_BLUE + "", ANSI_BLUE );		
+		res = res.replaceAll( ChatColor.DARK_BLUE + "", ANSI_BLUE );
 		res = res.replaceAll( ChatColor.DARK_GREEN + "", ANSI_GREEN );
 		res = res.replaceAll( ChatColor.DARK_AQUA + "", ANSI_CYAN );
 		res = res.replaceAll( ChatColor.DARK_RED + "", ANSI_RED );
 		res = res.replaceAll( ChatColor.DARK_PURPLE + "", ANSI_PURPLE );
-		res = res.replaceAll( ChatColor.GOLD + "", ANSI_YELLOW );		
+		res = res.replaceAll( ChatColor.GOLD + "", ANSI_YELLOW );
 		res = res.replaceAll( ChatColor.GRAY + "", ANSI_WHITE );
-		res = res.replaceAll( ChatColor.DARK_GRAY + "", ANSI_LIGHTBLACK );		
+		res = res.replaceAll( ChatColor.DARK_GRAY + "", ANSI_LIGHTBLACK );
 		res = res.replaceAll( ChatColor.AQUA + "", ANSI_LIGHTCYAN );
 		res = res.replaceAll( ChatColor.GREEN + "", ANSI_LIGHTGREEN );
 		res = res.replaceAll( ChatColor.BLUE + "", ANSI_LIGHTBLUE );
@@ -135,14 +135,20 @@ public class MLog
 		res = res.replaceAll( ChatColor.LIGHT_PURPLE + "", ANSI_LIGHTPURPLE );
 		res = res.replaceAll( ChatColor.YELLOW + "", ANSI_LIGHTYELLOW );
 		res = res.replaceAll( ChatColor.WHITE + "", ANSI_LIGHTWHITE );
-		
+
 		return res;
 	}
-	
+
 	public static String real( String src )
 	{
 		if( src == null )
 			return null;
-		return src.replaceAll( "&([0-9a-f])", "\u00A7$1" );
+		String target = src.replaceAll( "&([0-9a-f])", "\u00A7$1" );
+		target = target.replaceAll( "&m", ChatColor.MAGIC + "" );
+		target = target.replaceAll( "&l", ChatColor.BOLD + "" );
+		target = target.replaceAll( "&u", ChatColor.UNDERLINE + "" );
+		target = target.replaceAll( "&i", ChatColor.ITALIC + "" );
+		target = target.replaceAll( "&s", ChatColor.STRIKETHROUGH + "" );
+		return target;
 	}
 }

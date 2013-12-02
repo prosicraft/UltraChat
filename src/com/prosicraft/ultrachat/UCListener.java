@@ -30,7 +30,8 @@ public class UCListener implements Listener {
                         if ( !parent.enabled ) return;
                         
                         String msg = parent.parseformat(e.getMessage(), e.getPlayer());
-                        e.setFormat(msg);
+                        msg = msg.replaceAll( "%", "Prozent" );
+			e.setFormat(msg);
                         if ( MLog.real(e.getMessage()).trim().equalsIgnoreCase("") && 
                                 !parent.perms.has(e.getPlayer(), "ultrachat.emtpymessage") &&
                                 !e.getPlayer().isOp())
