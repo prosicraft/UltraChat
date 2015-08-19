@@ -25,7 +25,7 @@ public class MLog
 
 	public static void i( String txt, ChatColor col )
 	{
-		System.out.println( realAnsi( getAnsi(col) + MConst._OUT_PREFIX + "::INFO] " + txt ) + ANSI_RESET );
+		System.out.println( realAnsi( consoleFix(getAnsi(col) + MConst._OUT_PREFIX + "::INFO] " + txt) ) + ANSI_RESET);
 	}
 
 	public static void i( String txt )
@@ -35,7 +35,7 @@ public class MLog
 
 	public static void s( String txt, ChatColor col )
 	{
-		System.out.println( realAnsi( getAnsi(col) + MConst._OUT_PREFIX + "::SUCCESS] " + txt ) + ANSI_RESET );
+		System.out.println( realAnsi( consoleFix(getAnsi(col) + MConst._OUT_PREFIX + "::SUCCESS] " + txt) ) + ANSI_RESET);
 	}
 
 	public static void s( String txt )
@@ -45,7 +45,7 @@ public class MLog
 
 	public static void e( String txt, ChatColor col )
 	{
-		System.out.println( realAnsi( getAnsi(col) + MConst._OUT_PREFIX + "::ERROR] " + txt ) + ANSI_RESET );
+		System.out.println( realAnsi( consoleFix(getAnsi(col) + MConst._OUT_PREFIX + "::ERROR] " + txt) ) + ANSI_RESET);
 	}
 
 	public static void e( String txt )
@@ -55,7 +55,7 @@ public class MLog
 
 	public static void w( String txt, ChatColor col )
 	{
-		System.out.println( realAnsi( getAnsi(col) + MConst._OUT_PREFIX + "::WARNING] " + txt ) + ANSI_RESET );
+		System.out.println( realAnsi( consoleFix(getAnsi(col) + MConst._OUT_PREFIX + "::WARNING] " + txt) ) + ANSI_RESET);
 	}
 
 	public static void w( String txt )
@@ -66,13 +66,20 @@ public class MLog
 	public static void d( String txt, ChatColor col )
 	{
 		if( MConst._DEBUG_ENABLED )
-			System.out.println( realAnsi( getAnsi(col) + MConst._OUT_PREFIX + "::DEBUG] " + txt ) + ANSI_RESET );
+			System.out.println( realAnsi( consoleFix(getAnsi(col) + MConst._OUT_PREFIX + "::DEBUG] " + txt) ) + ANSI_RESET);
 	}
 
 	public static void d( String txt )
 	{
 		d( txt, ChatColor.DARK_GRAY );
 	}
+        
+        public static String consoleFix(String str) {
+            String res = str;            
+            res = res.replaceAll( "&0", ANSI_WHITE );
+            res = res.replaceAll( ChatColor.BLACK + "", ANSI_BLACK );
+            return res;
+        }
 
 	public static String getAnsi( ChatColor col )
 	{
